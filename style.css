@@ -1,0 +1,162 @@
+/* Custom Neon Effects and Animations */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, .font-black {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Game Cell Styling */
+.cell {
+    width: 100px;
+    height: 100px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(51, 65, 85, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cell:hover:not(.taken) {
+    background: rgba(51, 65, 85, 0.9);
+    border-color: rgba(0, 243, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.cell.taken {
+    cursor: not-allowed;
+}
+
+.cell.x {
+    color: #00f3ff;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+    animation: place-piece 0.4s ease-out;
+}
+
+.cell.o {
+    color: #bc13fe;
+    text-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
+    animation: place-piece 0.4s ease-out;
+}
+
+.cell.winning {
+    background: rgba(57, 255, 20, 0.1);
+    border-color: #39ff14;
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+    animation: pulse-win 1s ease-in-out infinite;
+}
+
+/* Piece Placement Animation */
+@keyframes place-piece {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(0deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Winning Pulse */
+@keyframes pulse-win {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 50px rgba(57, 255, 20, 0.8);
+    }
+}
+
+/* Neon Glow Utilities */
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+}
+
+.glow-violet {
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+}
+
+/* Modal Animation */
+.modal-enter {
+    opacity: 1 !important;
+}
+
+.modal-enter .transform {
+    transform: scale(1) !important;
+}
+
+/* Responsive Grid */
+@media (max-width: 640px) {
+    .cell {
+        width: 80px;
+        height: 80px;
+    }
+    
+    #game-board {
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Background Grid Pattern */
+.bg-grid {
+    background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Particle Effect for Wins */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #39ff14;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-float 1s ease-out forwards;
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
